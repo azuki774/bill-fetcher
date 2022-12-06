@@ -14,8 +14,6 @@ from bs4 import BeautifulSoup
 import remix
 import writer
 
-SAVE_DIR = '/var/tmp/comsume.csv'
-
 if __name__ == "__main__":
     print("fetcher start")
     remix_fetch_data = []
@@ -28,6 +26,6 @@ if __name__ == "__main__":
     data = remix.fetch_consume_month(driver)
     print("fetcher complete")
     print("writer start")
-    writer.csvwrite(SAVE_DIR, data)
+    writer.csvwrite(data)
     print("writer end")
     print("the program end")
