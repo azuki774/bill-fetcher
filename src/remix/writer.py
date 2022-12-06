@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime as dt
 import os
-SAVE_DIR = '/home/azuki/work/bill-fetcher/'
+SAVE_DIR = '/data/'
 
 import csv
 def csvwrite(data):
