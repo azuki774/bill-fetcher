@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import csv
-from curses import raw
 import time
 import os
+import sys
 import driver
 from venv import create
 from selenium import webdriver
@@ -16,6 +16,8 @@ import writer
 
 if __name__ == "__main__":
     print("fetcher start")
+    args = sys.argv
+
     remix_fetch_data = []
     driver = driver.get_driver()
     driver.implicitly_wait(10)
@@ -23,9 +25,16 @@ if __name__ == "__main__":
     print("Get driver")
 
     remix.login(driver)
-    data = remix.fetch_consume_month(driver)
-    print("fetcher complete")
-    print("writer start")
-    writer.csvwrite(data)
+    if len(args) >= 2 and args[1] == 'invoice':
+        data = remix.fetch_invoice(driver)
+        print("fetcher complete")
+        print("writer start")
+        writer.csvwrite_invoice(data)
+    else:
+        data = remix.fetch_consume_month(driver)
+        print("fetcher complete")
+        print("writer start")
+        writer.csvwrite(data)
+    
     print("writer end")
     print("the program end")

@@ -4,4 +4,6 @@ services:
     image: bill-fetcher-remix
     container_name: bill-fetcher-remix
     env_file:
-    - fetcher-token.env
+    - remix-token.env
+    # command: 
+    # - "invoice"
