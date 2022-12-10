@@ -38,6 +38,11 @@ def login(driver):
 def remove_return(text):
     return text.replace("\n", "")
 
+def trim_text(text):
+    text = text.replace("\n", "")
+    text = text.replace('\u3000', '')
+    return text
+
 def fetch_consume_month(driver):
     # [取得年月日, 使用量合計(kWh), 昼時間使用量(kWh), 夜時間使用量(kWh)]
     driver.get("https://portal.remix-denki.com/consumption.php")
@@ -58,6 +63,26 @@ def fetch_consume_month(driver):
     table = soup.find(id="graph_list")
 
     trs = table.findAll("tr")
+
+    result_data = []
+    for tr in trs:
+        row_data = []
+        for cell in tr.findAll(['td', 'th']):
+            row_data.append(remove_return(cell.get_text()))
+        result_data.append(row_data)
+
+    print(result_data)
+    return result_data
+
+def fetch_invoice(driver):
+    driver.get("https://portal.remix-denki.com/invoice.php")
+    
+    html = driver.page_source.encode('utf-8')
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # table = soup.find(class="table responsibveTbl")
+
+    trs = soup.findAll("tr")
 
     result_data = []
     for tr in trs:
