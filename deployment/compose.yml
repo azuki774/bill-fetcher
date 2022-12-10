@@ -5,8 +5,8 @@ services:
     container_name: bill-fetcher-remix
     env_file:
     - remix-token.env
-    # command: 
-    # - "invoice"
+    command: 
+    - "invoice"
 
   sbi:
     image: bill-fetcher-sbi
@@ -23,3 +23,10 @@ services:
         - ./:/data/
     env_file:
     - tokyowater-token.env
+  nicigas:
+    image: bill-fetcher-nicigas
+    container_name: bill-fetcher-nicigas
+    env_file:
+    - nicigas-token.env
+    volumes:
+    - ./:/data/
