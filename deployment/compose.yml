@@ -7,3 +7,11 @@ services:
     - remix-token.env
     # command: 
     # - "invoice"
+
+  sbi:
+    image: bill-fetcher-sbi
+    container_name: bill-fetcher-sbi
+    volumes:
+        - ./:/data/
+    env_file:
+    - sbi-token.env

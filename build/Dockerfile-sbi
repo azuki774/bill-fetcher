@@ -1,0 +1,3 @@
+FROM ghcr.io/azuki774/selenium-chrome:latest
+COPY src/sbi/ /src/
+ENTRYPOINT ["python3", "-u", "/src/main.py"]
