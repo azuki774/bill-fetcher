@@ -15,3 +15,11 @@ services:
         - ./:/data/
     env_file:
     - sbi-token.env
+
+  water:
+    image: bill-fetcher-tokyowater
+    container_name: bill-fetcher-tokyowater
+    volumes:
+        - ./:/data/
+    env_file:
+    - tokyowater-token.env
