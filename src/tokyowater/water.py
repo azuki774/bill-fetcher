@@ -43,16 +43,16 @@ def extract_bill(driver):
     # 使用量
     value_field = driver.find_element(by=By.XPATH, value='//*[@id="Content"]/div/div/div/div[2]/div[1]/div[1]/div/div[1]/p[2]/span[1]')
     print(value_field.get_attribute("textContent"))
-    # 利用期間 (not worked)
+    # 利用期間
     usage_term_field = driver.find_element(by=By.XPATH, value='//*[@id="Content"]/div/div/div/div[2]/div[1]/div[1]/div/div[2]/div[1]/p[2]/span')
     print(usage_term_field.get_attribute("textContent"))
-    # 利用量 (not worked)
+    # 利用量
     usage_amount_field = driver.find_element(by=By.XPATH, value='//*[@id="Content"]/div/div/div/div[2]/div[1]/div[1]/div/div[2]/div[2]/p[2]/span[1]')
     print(usage_amount_field.get_attribute("textContent"))
-    # 内訳（水道） (not worked)
+    # 内訳（水道）
     detail_waterprice_field = driver.find_element(by=By.XPATH, value='//*[@id="Content"]/div/div/div/div[2]/div[1]/div[1]/div/div[2]/div[3]/p[2]/span[1]')
     print(detail_waterprice_field.get_attribute("textContent"))
-    # 内訳（下水道） (not worked)
+    # 内訳（下水道）
     detail_sewerprice_field = driver.find_element(by=By.XPATH, value='//*[@id="Content"]/div/div/div/div[2]/div[1]/div[1]/div/div[2]/div[4]/p[2]/span[1]')
     print(detail_sewerprice_field.get_attribute("textContent"))
     # 現状では1ヶ月分
