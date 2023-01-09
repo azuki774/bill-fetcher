@@ -1,0 +1,5 @@
+FROM ghcr.io/azuki774/selenium-chrome:0.1.1
+LABEL description="bill-fetcher-nicigas"
+RUN python -m pip install --upgrade pip
+ADD src/nicigas/ /src/
+ENTRYPOINT ["python3", "-u", "/src/main.py"]
