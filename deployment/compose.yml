@@ -1,32 +1,39 @@
 version: '3'
 services:
-  remix:
-    image: bill-fetcher-remix
-    container_name: bill-fetcher-remix
-    env_file:
-    - remix-token.env
-    command: 
-    - "invoice"
+  # remix:
+  #   image: bill-fetcher-remix
+  #   container_name: bill-fetcher-remix
+  #   env_file:
+  #   - remix-token.env
+  #   command: 
+  #   - "invoice"
 
-  sbi:
-    image: bill-fetcher-sbi
-    container_name: bill-fetcher-sbi
-    volumes:
-        - ./:/data/
-    env_file:
-    - sbi-token.env
+  # sbi:
+  #   image: bill-fetcher-sbi
+  #   container_name: bill-fetcher-sbi
+  #   volumes:
+  #       - ./:/data/
+  #   env_file:
+  #   - sbi-token.env
 
-  water:
-    image: bill-fetcher-tokyowater
-    container_name: bill-fetcher-tokyowater
-    volumes:
-        - ./:/data/
-    env_file:
-    - tokyowater-token.env
-  nicigas:
-    image: bill-fetcher-nicigas
-    container_name: bill-fetcher-nicigas
-    env_file:
-    - nicigas-token.env
+  # water:
+  #   image: bill-fetcher-tokyowater
+  #   container_name: bill-fetcher-tokyowater
+  #   volumes:
+  #       - ./:/data/
+  #   env_file:
+  #   - tokyowater-token.env
+
+  # nicigas:
+  #   image: bill-fetcher-nicigas
+  #   container_name: bill-fetcher-nicigas
+  #   env_file:
+  #   - nicigas-token.env
+  #   volumes:
+  #   - ./:/data/
+
+  auelect:
+    image: bill-fetcher-auelect
+    container_name: bill-fetcher-auelect
     volumes:
     - ./:/data/
