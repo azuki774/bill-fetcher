@@ -66,7 +66,7 @@ def write_html(html, url):
     today = dt.date.today()  # 出力：datetime.date(2020, 3, 22)
     yyyymmdd = "{0:%Y%m%d}".format(today)  # 20200322
     os.makedirs(SAVE_DIR + yyyymmdd, exist_ok=True)
-    path_w = SAVE_DIR + +yyyymmdd + os.path.basename(url)
+    path_w = SAVE_DIR + yyyymmdd + os.path.basename(url)
     with open(path_w, mode="w") as f:
         f.write(html.decode("utf-8"))
     print("write ok")
