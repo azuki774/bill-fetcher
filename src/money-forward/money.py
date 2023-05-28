@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 import time
+import datetime as dt
 import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+
+SAVE_DIR = "/data/"
 
 
 def login(driver):
@@ -53,13 +56,17 @@ def login(driver):
 
 
 def get_from_url(driver, url):
+    print("fetch url: " + url)
     driver.get(url)
     html = driver.page_source.encode("utf-8")
     return html
 
 
-def write_html(html):
-    path_w = "/data/sample.htm"
+def write_html(html, url):
+    today = dt.date.today()  # 出力：datetime.date(2020, 3, 22)
+    yyyymmdd = "{0:%Y%m%d}".format(today)  # 20200322
+    os.makedirs(SAVE_DIR + yyyymmdd, exist_ok=True)
+    path_w = SAVE_DIR + +yyyymmdd + os.path.basename(url)
     with open(path_w, mode="w") as f:
         f.write(html.decode("utf-8"))
     print("write ok")

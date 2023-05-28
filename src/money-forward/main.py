@@ -35,11 +35,11 @@ def main():
     html = money.login(driver)
     print("login ok")
 
-    urls = []
+    urls = os.getenv("urls").split(',')
 
     for url in urls:
         html = money.get_from_url(driver, url)
-        money.write_html(html)
+        money.write_html(html, url)
 
 
 if __name__ == "__main__":
