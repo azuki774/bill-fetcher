@@ -1,5 +1,13 @@
 version: '3'
 services:
+  money-forward:
+    image: bill-fetcher-money-forward
+    container_name: bill-fetcher-money-forward
+    env_file:
+    - money-forward.env
+    volumes:
+    - ./:/data/
+
   # remix:
   #   image: bill-fetcher-remix
   #   container_name: bill-fetcher-remix
@@ -32,8 +40,8 @@ services:
   #   volumes:
   #   - ./:/data/
 
-  auelect:
-    image: bill-fetcher-auelect
-    container_name: bill-fetcher-auelect
-    volumes:
-    - ./:/data/
+  # auelect:
+  #   image: bill-fetcher-auelect
+  #   container_name: bill-fetcher-auelect
+  #   volumes:
+  #   - ./:/data/
