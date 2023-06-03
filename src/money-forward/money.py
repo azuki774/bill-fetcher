@@ -7,6 +7,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 SAVE_DIR = "/data/"
 
@@ -56,8 +58,11 @@ def login(driver):
 
 
 def get_from_url(driver, url):
+    wait = WebDriverWait(driver=driver, timeout=30)
+
     print("fetch url: " + url)
     driver.get(url)
+    wait.until(EC.presence_of_all_elements_located)
     html = driver.page_source.encode("utf-8")
     return html
 

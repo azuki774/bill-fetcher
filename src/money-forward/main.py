@@ -30,12 +30,11 @@ def main():
     print("fetcher start")
     print("Get driver")
     driver = get_driver()
-    driver.implicitly_wait(5)
 
     html = money.login(driver)
     print("login ok")
 
-    urls = os.getenv("urls").split(',')
+    urls = os.getenv("urls").split(",")
 
     for url in urls:
         html = money.get_from_url(driver, url)
