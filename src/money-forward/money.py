@@ -82,9 +82,9 @@ def get_from_url_cf_lastmonth(driver):
         value="/html/body/div[1]/div[3]/div/div/section/div[2]/button[1]",
     )
     lastmonth_button.click()
-    wait.until(time.sleep(15))
+    time.sleep(15)
     html = driver.page_source.encode("utf-8")
-    write_html(html, url + '_lastmonth')
+    write_html(html, url + "_lastmonth")
     return
 
 
