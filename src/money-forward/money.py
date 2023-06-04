@@ -67,6 +67,27 @@ def get_from_url(driver, url):
     return html
 
 
+def get_from_url_cf_lastmonth(driver):
+    # cf ページの last_month を取得して書き出す関数
+    wait = WebDriverWait(driver=driver, timeout=30)
+
+    url = "https://moneyforward.com/cf"
+    print("fetch url: " + url)
+    driver.get(url)
+    wait.until(EC.presence_of_all_elements_located)
+
+    # lastmonth_button button
+    lastmonth_button = driver.find_element(
+        by=By.XPATH,
+        value="/html/body/div[1]/div[3]/div/div/section/div[2]/button[1]",
+    )
+    lastmonth_button.click()
+    wait.until(time.sleep(15))
+    html = driver.page_source.encode("utf-8")
+    write_html(html, url + '_lastmonth')
+    return
+
+
 def write_html(html, url):
     today = dt.date.today()  # 出力：datetime.date(2020, 3, 22)
     yyyymmdd = "{0:%Y%m%d}".format(today)  # 20200322

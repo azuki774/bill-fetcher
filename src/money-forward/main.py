@@ -39,6 +39,8 @@ def main():
     for url in urls:
         html = money.get_from_url(driver, url)
         money.write_html(html, url)
+        if url == "https://moneyforward.com/cf":  # このページは先月分のデータも取っておく
+            money.get_from_url_cf_lastmonth(driver)
 
 
 if __name__ == "__main__":
