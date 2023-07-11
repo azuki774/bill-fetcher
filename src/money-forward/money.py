@@ -19,25 +19,25 @@ def login(driver):
 
     login_id = driver.find_element(
         by=By.XPATH,
-        value="/html/body/main/div/div/div/div[1]/div[1]/section/form/div[2]/div/input",
+        value="/html/body/main/div/div[2]/div/div/div[1]/section/form/div[2]/div/input",
     )
     login_id.send_keys(os.getenv("id"))
 
     email_button = driver.find_element(
         by=By.XPATH,
-        value="/html/body/main/div/div/div/div[1]/div[1]/section/form/div[2]/div/div[3]/input",
+        value="/html/body/main/div/div[2]/div/div/div[1]/section/form/div[2]/div/div[3]/button",
     )
     email_button.click()
 
     password_form = driver.find_element(
         by=By.XPATH,
-        value="/html/body/main/div/div/div/div/div[1]/section/form/div[2]/div/div[2]/input",
+        value="/html/body/main/div/div[2]/div/div/div[1]/section/form/div[2]/div/div[2]/input",
     )
     password_form.send_keys(os.getenv("pass"))
 
     login_button = driver.find_element(
         by=By.XPATH,
-        value="/html/body/main/div/div/div/div/div[1]/section/form/div[2]/div/div[3]/input",
+        value="/html/body/main/div/div[2]/div/div/div[1]/section/form/div[2]/div/div[3]/button",
     )
     login_button.click()
 
