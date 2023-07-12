@@ -49,7 +49,7 @@ def login(driver):
     # choose account button
     choose_button = driver.find_element(
         by=By.XPATH,
-        value="/html/body/main/div/div/div/div/div[1]/section/form/div[2]/div/div[2]/input",
+        value="/html/body/main/div/div[2]/div/div/div[1]/section/form/div[2]/div/div[2]/button",
     )
     choose_button.click()
 
