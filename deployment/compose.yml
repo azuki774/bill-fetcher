@@ -1,12 +1,22 @@
 version: '3'
 services:
-  money-forward:
-    image: bill-fetcher-money-forward
-    container_name: bill-fetcher-money-forward
+  # money-forward:
+  #   image: bill-fetcher-money-forward
+  #   container_name: bill-fetcher-money-forward
+  #   env_file:
+  #   - money-forward.env
+  #   volumes:
+  #   - ./:/data/
+
+  au:
+    image: bill-fetcher-au
+    container_name: bill-fetcher-au
     env_file:
-    - money-forward.env
+    - au-token.env
     volumes:
-    - ./:/data/
+    - ./.cookies:/.cookies
+    command:
+    - "--login-2fa"
 
   # remix:
   #   image: bill-fetcher-remix

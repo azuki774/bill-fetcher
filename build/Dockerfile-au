@@ -1,0 +1,4 @@
+FROM ghcr.io/azuki774/selenium-chrome:0.2.0-rc.2
+COPY src/au/ /src/
+RUN pip install -r /src/requirements.txt
+ENTRYPOINT ["python3", "-u", "/src/main.py"]
