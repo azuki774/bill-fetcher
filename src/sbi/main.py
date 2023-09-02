@@ -1,7 +1,5 @@
 from curses import raw
-import re
 import time
-import json
 import datetime
 import os
 import driver
@@ -11,6 +9,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
+
+import logging
+from pythonjsonlogger import jsonlogger
+
+lg = logging.getLogger(__name__)
+lg.setLevel(logging.DEBUG)
+h = logging.StreamHandler()
+h.setLevel(logging.DEBUG)
+json_fmt = jsonlogger.JsonFormatter(fmt='%(asctime)s %(levelname)s %(name)s %(message)s', json_ensure_ascii=False)
+h.setFormatter(json_fmt)
+lg.addHandler(h)
 
 SBI_USER = os.getenv("sbi_user")
 SBI_PASS = os.getenv("sbi_pass")
@@ -61,11 +70,11 @@ def reshapeCSV(rawoutputCSV):
     return outputCSV
 
 if __name__ == '__main__':
-    print('Program start')
+    lg.info('Program start')
 
     # ブラウザ起動
     driver = driver.get_driver()
-    print('Get driver')
+    lg.info('Get driver')
      
     # ログインURLにアクセス
     driver.get(LOGIN_URL)
@@ -77,12 +86,12 @@ if __name__ == '__main__':
 
     # ログインボタンを押す
     driver.find_element(by = By.NAME, value = 'ACT_login').click()
-    print('Login')
+    lg.info('Login')
     time.sleep(5)
 
     # ポートフォリオページに移動
     driver.get(PORT_URL)
-    print('Move portfolio page')
+    lg.info('Move portfolio page')
     time.sleep(5)
 
     soup = BeautifulSoup(driver.page_source, "html.parser")
@@ -91,10 +100,10 @@ if __name__ == '__main__':
     table_data = soup.find("table", bgcolor="#9fbf99", cellpadding="4", cellspacing="1", width="100%")
     
     fetch_data = createCSV(table_data)
-    print('create CSV')
+    lg.info('create CSV')
     
     writeCSV(fetch_data)
-    print('write CSV')
+    lg.info('write CSV')
 
     # ブラウザを閉じる
     driver.quit()

@@ -1,3 +1,4 @@
 FROM ghcr.io/azuki774/selenium-chrome:latest
 COPY src/sbi/ /src/
+RUN pip install -r /src/requirement.txt
 ENTRYPOINT ["python3", "-u", "/src/main.py"]
