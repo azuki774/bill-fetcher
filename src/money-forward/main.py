@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -36,17 +37,24 @@ def main():
     lg.info("Get driver")
     driver = get_driver()
 
-    html = money.login(driver)
+    try:
+        html = money.login(driver)
+    except Exception as e:
+        lg.error("failed to login. maybe changing xpath: %s", e)
+        sys.exit(1)
     lg.info("login ok")
 
     urls = os.getenv("urls").split(",")
 
     for url in urls:
-        html = money.get_from_url(driver, url)
-        money.write_html(html, url)
-        if url == "https://moneyforward.com/cf":  # このページは先月分のデータも取っておく
-            money.get_from_url_cf_lastmonth(driver)
-
+        try:
+            html = money.get_from_url(driver, url)
+            money.write_html(html, url)
+            if url == "https://moneyforward.com/cf":  # このページは先月分のデータも取っておく
+                money.get_from_url_cf_lastmonth(driver)
+        except Exception as e:
+            lg.error("failed to get HTML: %s", e)
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()
