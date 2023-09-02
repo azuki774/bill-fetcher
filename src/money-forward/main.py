@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-import csv
-import time
 import os
-import sys
-from venv import create
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
