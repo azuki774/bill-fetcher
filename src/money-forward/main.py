@@ -37,6 +37,7 @@ def main():
     lg.info("Get driver")
     driver = get_driver()
 
+    # login
     try:
         html = money.login(driver)
     except Exception as e:
@@ -46,6 +47,11 @@ def main():
 
     urls = os.getenv("urls").split(",")
 
+
+    # Refresh Button
+    # TODO
+
+    # download HTML
     for url in urls:
         try:
             html = money.get_from_url(driver, url)
