@@ -9,6 +9,16 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import logging
+from pythonjsonlogger import jsonlogger
+
+lg = logging.getLogger(__name__)
+lg.setLevel(logging.DEBUG)
+h = logging.StreamHandler()
+h.setLevel(logging.DEBUG)
+json_fmt = jsonlogger.JsonFormatter(fmt='%(asctime)s %(levelname)s %(name)s %(message)s', json_ensure_ascii=False)
+h.setFormatter(json_fmt)
+lg.addHandler(h)
 
 SAVE_DIR = "/data/"
 
@@ -60,7 +70,7 @@ def login(driver):
 def get_from_url(driver, url):
     wait = WebDriverWait(driver=driver, timeout=30)
 
-    print("fetch url: " + url)
+    lg.info("fetch url: " + url)
     driver.get(url)
     wait.until(EC.presence_of_all_elements_located)
     html = driver.page_source.encode("utf-8")
@@ -72,7 +82,7 @@ def get_from_url_cf_lastmonth(driver):
     wait = WebDriverWait(driver=driver, timeout=30)
 
     url = "https://moneyforward.com/cf"
-    print("fetch url: " + url)
+    lg.info("fetch url: " + url)
     driver.get(url)
     wait.until(EC.presence_of_all_elements_located)
 
@@ -95,5 +105,5 @@ def write_html(html, url):
     path_w = SAVE_DIR + yyyymmdd + "/" + os.path.basename(url)
     with open(path_w, mode="w") as f:
         f.write(html.decode("utf-8"))
-    print("write ok")
+    lg.info("write ok")
     return

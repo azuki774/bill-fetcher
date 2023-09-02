@@ -6,7 +6,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import money
+import logging
+from pythonjsonlogger import jsonlogger
 
+lg = logging.getLogger(__name__)
+lg.setLevel(logging.DEBUG)
+h = logging.StreamHandler()
+h.setLevel(logging.DEBUG)
+json_fmt = jsonlogger.JsonFormatter(fmt='%(asctime)s %(levelname)s %(name)s %(message)s', json_ensure_ascii=False)
+h.setFormatter(json_fmt)
+lg.addHandler(h)
 
 def get_driver():
     options = webdriver.ChromeOptions()
@@ -23,12 +32,12 @@ def get_driver():
 
 
 def main():
-    print("fetcher start")
-    print("Get driver")
+    lg.info("fetcher start")
+    lg.info("Get driver")
     driver = get_driver()
 
     html = money.login(driver)
-    print("login ok")
+    lg.info("login ok")
 
     urls = os.getenv("urls").split(",")
 

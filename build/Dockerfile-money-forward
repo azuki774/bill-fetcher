@@ -1,3 +1,4 @@
 FROM ghcr.io/azuki774/selenium-chrome:latest
 COPY src/money-forward/ /src/
+RUN pip install -r /src/requirements.txt
 ENTRYPOINT ["python3", "-u", "/src/main.py"]
