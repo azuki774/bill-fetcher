@@ -36,7 +36,20 @@ def save_cookies(driver):
 
 def login(driver):
     lg.info("au login start")
-    url = "https://connect.auone.jp/net/vwc/cca_lg_eu_nets/login?targeturl=https%3A%2F%2Fid.auone.jp%2Findex.html%3Fstate%3Dlogin"
+    url = "https://connect.auone.jp/net/vwc/cca_lg_eu_nets/login?targeturl=https%3A%2F%2Fwww.au.com%2Fenergy%2Fdenki%2Flogin"
+    driver.get(url)
+    if os.path.isfile(COOKIES):
+        lg.info("load cookies")
+        try:
+            load_cookies(driver)
+            lg.info("load cookies success")
+        except Exception as e:
+            lg.warning('failed to load cookies. skipping. {0}'.format(e))
+    else:
+        lg.warning("cookie file not found")
+
+    # After loading cookies
+    url = "https://connect.auone.jp/net/vwc/cca_lg_eu_nets/login?targeturl=https%3A%2F%2Fwww.au.com%2Fenergy%2Fdenki%2Flogin"
     driver.get(url)
 
     telno_field = driver.find_element(
@@ -50,20 +63,26 @@ def login(driver):
         value="/html/body/div[2]/div/div[1]/div[2]/div/div/form/button[1]",
     )
     next_button.click()
+    time.sleep(10)
+    html = driver.page_source.encode("utf-8").decode("utf-8")
+    print(html)
 
     pass_field = driver.find_element(
         by=By.XPATH,
-        value="/html/body/div[2]/div/div[1]/div[2]/div/div/form/input[25]",
+        value="/html/body/div[3]/div/div[1]/div[2]/div/div/form/input[25]",
     )
     pass_field.send_keys(os.getenv("pass"))
 
     login_button = driver.find_element(
         by=By.XPATH,
-        value="/html/body/div[2]/div/div[1]/div[2]/div/div/form/button[4]",
+        value="/html/body/div[3]/div/div[1]/div[2]/div/div/form/button[4]",
     )
     login_button.click()
 
     lg.info("user/pass login ok")
+    time.sleep(10)
+    html = driver.page_source.encode("utf-8").decode("utf-8")
+    print(html)
 
 def login_2fa(driver):
     login(driver)
@@ -76,7 +95,7 @@ def _login_2fa_proc(driver):
     # /.2fa_secret に 2段階認証コードを書くことで認証を進める
     lg.info("try 2FA login")
     lg.info("please set {0} written 2FA code".format(SECRET_2FA_FILE))
-    lg.info("docker exec -it <pod_name> /bin/sh")
+    lg.info("docker exec -it <pod_name> /bin/bash")
     lg.info("echo '<pass>' > {0}".format(SECRET_2FA_FILE))
 
     while True:
@@ -105,7 +124,8 @@ def _login_2fa_proc(driver):
 def get_from_url(driver, url):
     wait = WebDriverWait(driver=driver, timeout=30)
     driver.get(url)
+    time.sleep(10)
     wait.until(EC.presence_of_all_elements_located)
-    html = driver.page_source.encode("utf-8")
+    html = driver.page_source.encode("utf-8").decode("utf-8")
     print(html)
     return html

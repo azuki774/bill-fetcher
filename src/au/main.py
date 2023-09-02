@@ -30,21 +30,12 @@ if __name__ == "__main__":
     lg.info("get driver")
     driver = driver.get_driver()
 
-    if os.path.isfile(COOKIES):
-        lg.info("load cookies")
-        try:
-            au.load_cookies(driver)
-            lg.info("load cookies success")
-        except Exception as e:
-            lg.warning('failed to load cookies. skipping. {0}'.format(e))
-    else:
-        lg.warning("cookie file not found")
-
-
     if args.login_2fa:
         # login mode
         lg.info("au page login mode")
         au.login_2fa(driver)
+        lg.info("save cookies")
+        au.save_cookies(driver)
         sys.exit(0)
 
     au.login(driver)
