@@ -98,6 +98,25 @@ def get_from_url_cf_lastmonth(driver):
     return
 
 
+def move_page(driver, url):
+    wait = WebDriverWait(driver=driver, timeout=30)
+    lg.info("move page url: " + url)
+    driver.get(url)
+    return
+
+def press_from_xpath(driver, xpath):
+    """
+    指定したxpathのリンクを押す
+    ページはすでに遷移済にしておくこと
+    """
+    xpath_link = driver.find_element(
+        by=By.XPATH,
+        value=xpath,
+    )
+    xpath_link.click()
+    return
+
+
 def write_html(html, url):
     today = dt.date.today()  # 出力：datetime.date(2020, 3, 22)
     yyyymmdd = "{0:%Y%m%d}".format(today)  # 20200322

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -9,6 +10,8 @@ from selenium.webdriver.chrome.service import Service
 import money
 import logging
 from pythonjsonlogger import jsonlogger
+
+ROOTPAGE_URL="https://moneyforward.com"
 
 lg = logging.getLogger(__name__)
 lg.setLevel(logging.DEBUG)
@@ -47,9 +50,16 @@ def main():
 
     urls = os.getenv("urls").split(",")
 
-
     # Refresh Button
-    # TODO
+    money.move_page(driver, ROOTPAGE_URL)
+    refresh_xpaths = os.getenv("refresh_xpaths").split(",")
+    for xpath in refresh_xpaths:
+        try:
+            money.press_from_xpath(driver, xpath)
+            lg.info("press update button: %s", xpath)
+            time.sleep(30) # 反映されるように30sec待っておく
+        except Exception as e:
+            lg.warn('failed to press update button: %s', e)
 
     # download HTML
     for url in urls:
