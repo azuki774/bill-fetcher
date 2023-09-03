@@ -69,13 +69,13 @@ def login(driver):
 
     pass_field = driver.find_element(
         by=By.XPATH,
-        value="/html/body/div[3]/div/div[1]/div[2]/div/div/form/input[25]",
+        value="/html/body/div[2]/div/div[1]/div[2]/div/div/form/input[25]",
     )
     pass_field.send_keys(os.getenv("pass"))
 
     login_button = driver.find_element(
         by=By.XPATH,
-        value="/html/body/div[3]/div/div[1]/div[2]/div/div/form/button[4]",
+        value="/html/body/div[2]/div/div[1]/div[2]/div/div/form/button[4]",
     )
     login_button.click()
 
@@ -112,7 +112,7 @@ def _login_2fa_proc(driver):
         by=By.XPATH,
         value="/html/body/div[2]/div/form/input[7]",
     )
-    pass_field.send_keys(os.getenv("pass"))
+    pass_field.send_keys(secret_2fa_code)
 
     login_button = driver.find_element(
         by=By.XPATH,
@@ -120,6 +120,9 @@ def _login_2fa_proc(driver):
     )
     login_button.click()
     lg.info("2FA login information send")
+    time.sleep(5)
+    html = driver.page_source.encode("utf-8").decode("utf-8")
+    print(html)
 
 def get_from_url(driver, url):
     wait = WebDriverWait(driver=driver, timeout=30)

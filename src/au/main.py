@@ -10,6 +10,7 @@ import argparse
 import sys
 import au
 import os
+import time
 
 lg = logging.getLogger(__name__)
 lg.setLevel(logging.DEBUG)
@@ -36,6 +37,7 @@ if __name__ == "__main__":
         au.login_2fa(driver)
         lg.info("save cookies")
         au.save_cookies(driver)
+        time.sleep(3600)
         sys.exit(0)
 
     au.login(driver)

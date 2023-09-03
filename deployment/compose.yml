@@ -15,8 +15,8 @@ services:
     - au-token.env
     volumes:
     - ./.cookies:/.cookies
-    # command:
-    # - "--login-2fa"
+    command:
+    - "--login-2fa"
 
   # remix:
   #   image: bill-fetcher-remix
