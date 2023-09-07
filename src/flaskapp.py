@@ -1,7 +1,9 @@
 from flask import Flask
 from pythonjsonlogger import jsonlogger
 import logging
-import moneyforward.money
+import sys
+import driver
+import moneyforward.money as money
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -19,11 +21,20 @@ app = Flask("flaskapp")
 def index_get():
     return "OK"
 
+drv = None
 
 def main():
     ## Get Initial Browser setup
+    global drv
     logger.info("api setup start")
     logger.info("get driver")
-    driver = driver.get_driver()
+    drv = driver.get_driver()
+    logger.info("money forward login")
+    try:
+        money.login(drv)
+    except Exception as e:
+        logger.error("failed to login. maybe changing xpath: %s", e)
+        sys.exit(1)
+    logger.info("money forward login sucessful")
 
 main()

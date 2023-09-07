@@ -1,9 +1,9 @@
-FROM python:3.11-bullseye
+FROM ghcr.io/azuki774/selenium-chrome:0.2.0
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 COPY src/ /src
 RUN pip install --upgrade pip && pip install -r /src/requirements.txt
-RUN pip install --upgrade pip && pip install -r /src/moneyforward/requirements.txt
+RUN pip install -r /src/moneyforward/requirements.txt
 WORKDIR /src/
-CMD ["gunicorn", "flaskapp:app", "--config", "gunicorn.py"]
+ENTRYPOINT ["gunicorn", "flaskapp:app", "--config", "gunicorn.py"]
