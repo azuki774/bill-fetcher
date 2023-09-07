@@ -2,8 +2,9 @@ FROM ghcr.io/azuki774/selenium-chrome:0.2.0
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+COPY requirements/ /tmp/
+RUN pip install --upgrade pip && pip install -r /tmp/api_requirements.txt
+RUN pip install -r /tmp/moneyforward_requirements.txt
 COPY src/ /src
-RUN pip install --upgrade pip && pip install -r /src/requirements.txt
-RUN pip install -r /src/moneyforward/requirements.txt
 WORKDIR /src/
 ENTRYPOINT ["gunicorn", "flaskapp:app", "--config", "gunicorn.py"]

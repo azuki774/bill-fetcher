@@ -1,4 +1,6 @@
 FROM ghcr.io/azuki774/selenium-chrome:latest
+
+COPY requirements/ /tmp/
+RUN pip install --upgrade pip && pip install -r /tmp/sbi_requirements.txt
 COPY src/sbi/ /src/
-RUN pip install -r /src/requirement.txt
 ENTRYPOINT ["python3", "-u", "/src/main.py"]
