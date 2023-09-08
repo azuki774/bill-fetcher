@@ -94,8 +94,7 @@ def get_from_url_cf_lastmonth(driver):
     lastmonth_button.click()
     time.sleep(2)
     html = driver.page_source.encode("utf-8")
-    write_html(html, url + "_lastmonth")
-    return
+    return html
 
 
 def move_page(driver, url):

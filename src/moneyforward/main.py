@@ -67,7 +67,8 @@ def main():
             html = money.get_from_url(driver, url)
             money.write_html(html, url)
             if url == "https://moneyforward.com/cf":  # このページは先月分のデータも取っておく
-                money.get_from_url_cf_lastmonth(driver)
+                html = money.get_from_url_cf_lastmonth(driver)
+                money.write_html(html, url + "_lastmonth")
         except Exception as e:
             lg.error("failed to get HTML: %s", e)
             sys.exit(1)
