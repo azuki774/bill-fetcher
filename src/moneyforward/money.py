@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import logging
+import json
 from pythonjsonlogger import jsonlogger
 
 lg = logging.getLogger(__name__)
@@ -92,10 +93,9 @@ def get_from_url_cf_lastmonth(driver):
         value="/html/body/div[1]/div[3]/div/div/section/div[2]/button[1]",
     )
     lastmonth_button.click()
-    time.sleep(15)
+    time.sleep(2)
     html = driver.page_source.encode("utf-8")
-    write_html(html, url + "_lastmonth")
-    return
+    return html
 
 
 def move_page(driver, url):
@@ -116,6 +116,44 @@ def press_from_xpath(driver, xpath):
     xpath_link.click()
     return
 
+def get_status(driver, xpaths):
+    """
+    /html/body/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/div/section[3]/ul/li[3]/ul[2]/li[3]/a[2] <- key: 「更新」リンクのxpath
+    たちから
+    /html/body/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/div/section[3]/ul/li[3]/div/a[1] : 名前
+    /html/body/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/div/section[3]/ul/li[3]/div/div : 取得日
+    /html/body/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/div/section[3]/ul/li[3]/ul[2]/li[1] : 同期ステータス
+    を取得して、リストで返す
+    """
+    move_page(driver, "https://moneyforward.com")
+    ret_f = {}
+
+    for xpath in xpaths:
+        base_xpath_list = xpath.split("/")[0:-3]
+        base_xpath = "/".join(base_xpath_list) # /html/body/div[1]/div[3]/div[1]/div[1]/div[2]/div[1]/div/section[3]/ul/li[3]
+        name_xpath = base_xpath + "/div/a[1]"
+        syncday_xpath = base_xpath + "/div/div"
+        sync_status_xpath = base_xpath + "/ul[2]/li[1]"
+
+        name = driver.find_element(
+            by=By.XPATH,
+            value=name_xpath
+        ).get_attribute("textContent")
+
+        syncday = driver.find_element(
+            by=By.XPATH,
+            value=syncday_xpath
+        ).get_attribute("textContent")
+
+        sync_status = driver.find_element(
+            by=By.XPATH,
+            value=sync_status_xpath
+        ).get_attribute("textContent")
+
+        ret_f[name] = {"sync_day" : syncday, "sync_status": sync_status}
+
+    ret_f_json = json.dumps(ret_f, ensure_ascii=False)
+    return ret_f_json
 
 def write_html(html, url):
     today = dt.date.today()  # 出力：datetime.date(2020, 3, 22)

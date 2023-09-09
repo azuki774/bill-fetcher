@@ -1,12 +1,20 @@
 version: '3'
 services:
-  money-forward:
-    image: bill-fetcher-money-forward
-    container_name: bill-fetcher-money-forward
+  fetcher-api:
+    image: bill-fetcher-api
+    container_name: bill-fetcher-api
     env_file:
-    - money-forward.env
-    volumes:
-    - ./:/data/
+    - api.env
+    ports:
+    - "8080:9876"
+
+  # money-forward:
+  #   image: bill-fetcher-money-forward
+  #   container_name: bill-fetcher-money-forward
+  #   env_file:
+  #   - money-forward.env
+  #   volumes:
+  #   - ./:/data/
 
   # remix:
   #   image: bill-fetcher-remix
