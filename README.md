@@ -6,7 +6,7 @@
 - `deploymments/compose.yml` と `money-forward.yml` の要領で、コンテナ `bill-fetcher-money-forward` を起動させる。
 - 取得したいリンクと、必要に応じて金融機関連携の「更新」ボタンの XPATH を環境変数で渡す。
 
-## money-forward API
+## bill-fetcher API
 - https://moneyforward.com に自動的にログインして、APIサーバを起動させる(:8080)。下のエンドポイントを叩くと、自動的にサイトからデータを取得・操作する
     - `GET /moneyforaward/cf`
        - 入出金の家計簿ページで今月のデータを返す
