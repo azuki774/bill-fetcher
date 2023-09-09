@@ -4,7 +4,7 @@ services:
     image: bill-fetcher-api
     container_name: bill-fetcher-api
     env_file:
-    - money-forward.env
+    - api.env
     ports:
     - "8080:9876"
 

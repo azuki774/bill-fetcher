@@ -39,6 +39,7 @@ def main():
     lg.info("fetcher start")
     lg.info("Get driver")
     driver = get_driver()
+    driver.implicitly_wait(10)
 
     # login
     try:
