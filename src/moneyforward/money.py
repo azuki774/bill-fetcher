@@ -25,7 +25,7 @@ SAVE_DIR = "/data/"
 
 
 def login(driver):
-    url = "https://id.moneyforward.com/sign_in/email"
+    url = "https://id.moneyforward.com/sign_in/"
     driver.get(url)
 
     login_id = driver.find_element(
