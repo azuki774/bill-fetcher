@@ -34,6 +34,8 @@ def get_driver():
 
 def main():
     lg.info("fetcher start")
+    lg.info("wait sleep for starting server")
+    time.sleep(int(os.getenv("START_SLEEP", default="0")))
     lg.info("Get driver")
     driver = get_driver()
     lg.info("Get driver ok")
@@ -44,6 +46,7 @@ def main():
         html = money.login(driver)
     except Exception as e:
         lg.error("failed to login. maybe changing xpath: %s", e)
+        driver.quit()
         sys.exit(1)
     lg.info("login ok")
 
@@ -59,6 +62,7 @@ def main():
             time.sleep(30)  # 反映されるように30sec待っておく
         except Exception as e:
             lg.warn("failed to press update button: %s", e)
+            driver.quit()
 
     # download HTML
     for url in urls:
@@ -70,7 +74,10 @@ def main():
                 money.write_html(html, url + "_lastmonth")
         except Exception as e:
             lg.error("failed to get HTML: %s", e)
+            driver.quit()
             sys.exit(1)
+
+    driver.quit()
 
 
 if __name__ == "__main__":
