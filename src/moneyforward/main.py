@@ -11,27 +11,24 @@ import money
 import logging
 from pythonjsonlogger import jsonlogger
 
-ROOTPAGE_URL="https://moneyforward.com"
+ROOTPAGE_URL = "https://moneyforward.com"
 
 lg = logging.getLogger(__name__)
 lg.setLevel(logging.DEBUG)
 h = logging.StreamHandler()
 h.setLevel(logging.DEBUG)
-json_fmt = jsonlogger.JsonFormatter(fmt='%(asctime)s %(levelname)s %(name)s %(message)s', json_ensure_ascii=False)
+json_fmt = jsonlogger.JsonFormatter(
+    fmt="%(asctime)s %(levelname)s %(name)s %(message)s", json_ensure_ascii=False
+)
 h.setFormatter(json_fmt)
 lg.addHandler(h)
 
+
 def get_driver():
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--lang=ja-JP")
-    options.add_argument("--disable-dev-shm-usage")
-    UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
-    options.add_argument("--user-agent=" + UA)
-    chrome_service = Service(executable_path="/usr/bin/chromedriver")
-    driver = webdriver.Chrome(service=chrome_service, options=options)
+    driver = webdriver.Remote(
+        command_executor="http://selenium:4444/wd/hub",
+        options=webdriver.ChromeOptions(),
+    )
     return driver
 
 
@@ -39,6 +36,7 @@ def main():
     lg.info("fetcher start")
     lg.info("Get driver")
     driver = get_driver()
+    lg.info("Get driver ok")
     driver.implicitly_wait(10)
 
     # login
@@ -58,9 +56,9 @@ def main():
         try:
             money.press_from_xpath(driver, xpath)
             lg.info("press update button: %s", xpath)
-            time.sleep(30) # 反映されるように30sec待っておく
+            time.sleep(30)  # 反映されるように30sec待っておく
         except Exception as e:
-            lg.warn('failed to press update button: %s', e)
+            lg.warn("failed to press update button: %s", e)
 
     # download HTML
     for url in urls:
@@ -73,6 +71,7 @@ def main():
         except Exception as e:
             lg.error("failed to get HTML: %s", e)
             sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
