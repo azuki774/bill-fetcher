@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import money
 import logging
+import alert
 from pythonjsonlogger import jsonlogger
 
 ROOTPAGE_URL = "https://moneyforward.com"
@@ -69,12 +70,17 @@ def main():
         try:
             html = money.get_from_url(driver, url)
             money.write_html(html, url)
-            if url == "https://moneyforward.com/cf":  # このページは先月分のデータも取っておく
+            if (
+                url == "https://moneyforward.com/cf"
+            ):  # このページは先月分のデータも取っておく
                 html = money.get_from_url_cf_lastmonth(driver)
                 money.write_html(html, url + "_lastmonth")
         except Exception as e:
             lg.error("failed to get HTML: %s", e)
             driver.quit()
+
+            # alert
+            alert.send_alert_main(str(e))
             sys.exit(1)
 
     driver.quit()
