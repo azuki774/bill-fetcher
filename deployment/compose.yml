@@ -1,21 +1,13 @@
 version: '3'
 services:
-  selenium:
-    image: selenium/standalone-chrome:4.1.4-20220427
-    container_name: selenium
-    ports:
-      - 4444:4444
-      - 7900:7900
-    volumes:
-      - /dev/shm:/dev/shm
-
-  # fetcher-api:
-  #   image: bill-fetcher-api
-  #   container_name: bill-fetcher-api
-  #   env_file:
-  #   - api.env
+  # selenium:
+  #   image: selenium/standalone-chrome:4.1.4-20220427
+  #   container_name: selenium
   #   ports:
-  #   - "8080:9876"
+  #     - 4444:4444
+  #     - 7900:7900
+  #   volumes:
+  #     - /dev/shm:/dev/shm
 
   money-forward:
     image: bill-fetcher-money-forward
@@ -24,41 +16,3 @@ services:
     - money-forward.env
     volumes:
     - ./:/data/
-
-  # remix:
-  #   image: bill-fetcher-remix
-  #   container_name: bill-fetcher-remix
-  #   env_file:
-  #   - remix-token.env
-  #   command: 
-  #   - "invoice"
-
-  # sbi:
-  #   image: bill-fetcher-sbi
-  #   container_name: bill-fetcher-sbi
-  #   volumes:
-  #       - ./:/data/
-  #   env_file:
-  #   - sbi-token.env
-
-  # water:
-  #   image: bill-fetcher-tokyowater
-  #   container_name: bill-fetcher-tokyowater
-  #   volumes:
-  #       - ./:/data/
-  #   env_file:
-  #   - tokyowater-token.env
-
-  # nicigas:
-  #   image: bill-fetcher-nicigas
-  #   container_name: bill-fetcher-nicigas
-  #   env_file:
-  #   - nicigas-token.env
-  #   volumes:
-  #   - ./:/data/
-
-  # auelect:
-  #   image: bill-fetcher-auelect
-  #   container_name: bill-fetcher-auelect
-  #   volumes:
-  #   - ./:/data/

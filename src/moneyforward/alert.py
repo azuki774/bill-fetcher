@@ -17,9 +17,9 @@ h.setFormatter(json_fmt)
 lg.addHandler(h)
 
 
-notify_address = os.getnev("notify_address")
-gmail_account = os.getnev("mail_user")
-gmail_password = os.getnev("mail_pass")
+notify_address = os.getenv("notify_address")
+gmail_account = os.getenv("mail_user")
+gmail_password = os.getenv("mail_pass")
 
 
 def make_mime_text(mail_to, subject, body):
