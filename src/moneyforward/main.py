@@ -76,7 +76,7 @@ def main():
             time.sleep(30)  # 反映されるように30sec待っておく
         except Exception as e:
             lg.warn("failed to press update button: %s", e)
-            driver.quit()
+            # update ボタンが押せなくとも終了しない
 
     # download HTML
     for url in urls:
