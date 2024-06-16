@@ -49,19 +49,19 @@ def createCSV(table_data):
 
 
 # ディレクトリ作成とファイル名取得する
-def get_file_path():
+def get_file_path(index):
     today = datetime.date.today()  # 出力：datetime.date(2020, 3, 22)
     yyyymm = "{0:%Y%m}".format(today)  # 202003
     yyyymmdd = "{0:%Y%m%d}".format(today)  # 20200322
     os.makedirs(SAVE_DIR + yyyymm, exist_ok=True)
 
-    filepath = SAVE_DIR + yyyymm + "/" + yyyymmdd + ".csv"
+    filepath = SAVE_DIR + yyyymm + "/" + yyyymmdd + "_" + str(index) + ".csv"
     return filepath
 
 
 # 作成した文字列データ(CSV)を指定場所に書き込み
-def writeCSV(rawoutputCSV):
-    filepath = get_file_path()
+def writeCSV(rawoutputCSV, index):
+    filepath = get_file_path(index)
     outputCSV = reshapeCSV(rawoutputCSV)
 
     with open(filepath, mode="w") as f:
@@ -103,16 +103,17 @@ if __name__ == "__main__":
 
     soup = BeautifulSoup(driver.page_source, "html.parser")
 
-    # ポートフォリオの１テーブル目を取得
-    table_data = soup.find(
+    # ポートフォリオのテーブルを取得
+    table_data = soup.find_all(
         "table", bgcolor="#9fbf99", cellpadding="4", cellspacing="1", width="100%"
     )
 
-    fetch_data = createCSV(table_data)
-    lg.info("create CSV")
-
-    writeCSV(fetch_data)
-    lg.info("write CSV")
+    # 取得したテーブルを上から順に、#1, #2 をつけて YYYYMMDD_#x.csv として保存
+    for i in range(len(table_data)):
+        fetch_data = createCSV(table_data[i])
+        lg.info("create CSV: #{}".format(i + 1))
+        writeCSV(fetch_data, i + 1)
+        lg.info("write CSV")
 
     # ブラウザを閉じる
     driver.quit()
