@@ -3,8 +3,8 @@ CONTAINER_NAME_MONEY_FORWARD=bill-fetcher-money-forward
 
 .PHONY: build start stop clean
 build:
-	docker build -t $(CONTAINER_NAME_SBI) -f build/Dockerfile-sbi .
-	docker build -t $(CONTAINER_NAME_MONEY_FORWARD) -f build/Dockerfile-money-forward .
+	docker build -t $(CONTAINER_NAME_SBI) -f build/sbi/Dockerfile .
+	docker build -t $(CONTAINER_NAME_MONEY_FORWARD) -f build/money-forward/Dockerfile .
 
 start:
 	docker compose -f deployment/compose.yml up -d
