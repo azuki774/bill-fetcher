@@ -17,18 +17,10 @@ services:
   #   volumes:
   #   - ./:/data/
 
-  # fetcher-sbi:
-  #   image: bill-fetcher-sbi
-  #   container_name: bill-fetcher-sbi
-  #   env_file:
-  #   - sbi-token.env
-  #   volumes:
-  #   - ./:/data/
-
-  fetcher-money-forward:
-    image: bill-fetcher-money-forward
-    container_name: bill-fetcher-money-forward
+  fetcher-sbi:
+    image: bill-fetcher-sbi
+    container_name: bill-fetcher-sbi
     env_file:
-      - money-forward.env
+    - sbi-token.env
     volumes:
-      - ./:/data/
+    - ./:/data/
