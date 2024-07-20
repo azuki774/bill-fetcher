@@ -48,5 +48,10 @@ function s3_upload () {
 }
 
 fetch
+
+if [ -z $BUCKET_NAME]; then
+    exit 0
+fi
+
 create_s3_credentials
 s3_upload
