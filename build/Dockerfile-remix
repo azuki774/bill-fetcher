@@ -1,5 +1,0 @@
-FROM ghcr.io/azuki774/selenium-chrome:latest
-LABEL description="bill-fetcher-remix"
-RUN python -m pip install --upgrade pip
-ADD src/remix/ /src/
-ENTRYPOINT ["python3", "-u", "/src/main.py"]

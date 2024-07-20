@@ -9,10 +9,18 @@ services:
   #   volumes:
   #     - /dev/shm:/dev/shm
 
-  money-forward:
-    image: bill-fetcher-money-forward
-    container_name: bill-fetcher-money-forward
+  # money-forward:
+  #   image: bill-fetcher-money-forward
+  #   container_name: bill-fetcher-money-forward
+  #   env_file:
+  #   - money-forward.env
+  #   volumes:
+  #   - ./:/data/
+
+  fetcher-sbi:
+    image: bill-fetcher-sbi
+    container_name: bill-fetcher-sbi
     env_file:
-    - money-forward.env
+    - sbi-token.env
     volumes:
     - ./:/data/

@@ -1,6 +1,0 @@
-FROM ghcr.io/azuki774/selenium-chrome:0.2.0
-COPY requirements/ /tmp/
-RUN pip install --upgrade pip && pip install -r /tmp/moneyforward_requirements.txt
-
-COPY src/moneyforward/ /src/
-ENTRYPOINT ["python3", "-u", "/src/main.py"]
