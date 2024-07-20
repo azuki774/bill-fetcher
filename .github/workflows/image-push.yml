@@ -42,7 +42,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./build/Dockerfile-sbi
+          file: ./build/sbi/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
@@ -82,6 +82,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./build/Dockerfile-money-forward
+          file: ./build/money-forward/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
