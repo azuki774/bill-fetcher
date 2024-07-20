@@ -16,4 +16,3 @@ COPY --chmod=755 build/money-forward/main.sh /src/main.sh
 COPY src/moneyforward/ /src/
 
 ENTRYPOINT ["/src/main.sh"]
-

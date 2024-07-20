@@ -46,5 +46,4 @@ function s3_upload () {
 
 fetch
 create_s3_credentials
-
 s3_upload
