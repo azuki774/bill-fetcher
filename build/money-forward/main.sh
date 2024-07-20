@@ -49,7 +49,7 @@ function s3_upload () {
 
 fetch
 
-if [ -z $BUCKET_NAME]; then
+if [ -z $BUCKET_NAME ]; then
     exit 0
 fi
 
