@@ -42,7 +42,7 @@ function create_s3_credentials {
 function s3_upload () {
     echo "s3 upload start"
     ${AWS_BIN} s3 cp ${DATA_DIR}/${YYYYMMDD}/ "s3://${BUCKET_NAME}/${REMOTE_DIR_DAILY}" --recursive --endpoint-url="${BUCKET_URL}"
-    mv ${DATA_DIR}/${YYYYMMDD} ${DATA_DIR}/latest
+    mv ${DATA_DIR}/${YYYYMMDD}/* ${DATA_DIR}/latest/
     ${AWS_BIN} s3 cp ${DATA_DIR}/latest/ "s3://${BUCKET_NAME}/${REMOTE_DIR_LATEST}" --recursive --endpoint-url="${BUCKET_URL}"
     echo "s3 upload complete"
 }
